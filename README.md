@@ -8,11 +8,12 @@ Features **artist search, detailed information, artwork galleries, and user auth
 
 ## 📁 Repository Structure
 
+
 ```
 artsy-artist-explorer/
-├── assignment-2/          # Flask Web App (Vanilla JS)
-├── assignment-3/          # Angular Web App (Full-Stack)
-├── assignment-4/          # Android Mobile App (Kotlin)
+├── Front(Android) v2/          # Flask Web App (Vanilla JS)
+├── Front+Back v2/          # Angular Web App (Full-Stack)
+├── Front+Back v1/          # Android Mobile App (Kotlin)
 └── README.md             # This file
 ```
 
@@ -20,21 +21,21 @@ artsy-artist-explorer/
 
 ## 🚀 Project Evolution
 
-### Assignment 2: Flask Foundation
+### Front+Back v1: Flask Foundation
 **Python, Flask, Vanilla JavaScript, Custom CSS**
 - Basic artist search with Artsy API integration
 - Custom responsive design without frameworks
 - AJAX functionality with loading states
 - Server-side API proxy for security
 
-### Assignment 3: Angular Full-Stack
+### Front+Back v2: Angular Full-Stack
 **Angular, TypeScript, Bootstrap, Node.js, MongoDB**
 - Modern frontend framework with responsive Bootstrap design
 - Complete authentication system (JWT + cookies)
 - User favorites with persistent storage
 - Advanced features: similar artists, artwork galleries
 
-### Assignment 4: Android Mobile
+### Front(Android) v2: Android Mobile
 **Kotlin, Jetpack Compose, Material Design 3**
 - Native Android app with modern UI patterns
 - Persistent login with cookie management
@@ -47,9 +48,9 @@ artsy-artist-explorer/
 
 | Assignment | Frontend | Backend | Database | Deployment |
 |------------|----------|---------|----------|------------|
-| **Assignment 2** | Vanilla JS + Custom CSS | Python Flask | None | Google Cloud |
-| **Assignment 3** | Angular + Bootstrap | Node.js + Express | MongoDB Atlas | Google Cloud |
-| **Assignment 4** | Android (Kotlin + Compose) | Node.js (reused) | MongoDB Atlas | Emulator |
+| **Front+Back v1** | Vanilla JS + Custom CSS | Python Flask | None | Google Cloud |
+| **Front+Back v2** | Angular + Bootstrap | Node.js + Express | MongoDB Atlas | Google Cloud |
+| **Front(Android) v2** | Android (Kotlin + Compose) | Node.js (reused) | MongoDB Atlas | Emulator |
 
 ---
 
@@ -58,7 +59,7 @@ artsy-artist-explorer/
 ### 🔹 Artist Search & Discovery
 - **Real-time Search**: Dynamic artist search with Artsy API
 - **Artist Details**: Biography, nationality, birth/death dates
-- **Artwork Galleries**: Browse artist's complete artwork collections
+- **Artwork Galleries**: Browse artists' complete artwork collections
 - **Visual Design**: Consistent card-based layouts across platforms
 
 ### 🔹 Authentication (Assignments 3 & 4)
@@ -84,9 +85,9 @@ artsy-artist-explorer/
 - **Error Handling**: Graceful fallbacks for missing data
 
 ### Progressive Enhancement
-- **Assignment 2**: Foundation with vanilla technologies
-- **Assignment 3**: Modern web frameworks and full authentication
-- **Assignment 4**: Native mobile experience with advanced UI patterns
+- **Front+Back v1**: Foundation with vanilla technologies
+- **Front+Back v2**: Modern web frameworks and full authentication
+- **Front(Android) v2**: Native mobile experience with advanced UI patterns
 
 ---
 
@@ -115,14 +116,14 @@ This portfolio demonstrates proficiency in:
 
 ## 🚀 Quick Start
 
-### Assignment 2 (Flask)
+### Front+Back v1 (Flask)
 ```bash
 cd assignment-2
 pip install Flask requests
 python app.py
 ```
 
-### Assignment 3 (Angular + Node.js)
+### Front+Back v2 (Angular + Node.js)
 ```bash
 # Backend
 cd assignment-3/backend
@@ -133,7 +134,7 @@ cd assignment-3/frontend
 npm install && ng serve
 ```
 
-### Assignment 4 (Android)
+### Front(Android) v2 (Android)
 ```bash
 cd assignment-4
 # Open in Android Studio
@@ -144,9 +145,9 @@ cd assignment-4
 
 ## 📹 Demos
 
-- **Assignment 2**: [Flask Web Demo](https://youtu.be/fj7cPxLDiM8)
-- **Assignment 3**: [Angular Web Demo](https://youtu.be/fj7cPxLDiM8) | [Mobile Demo](https://www.youtube.com/shorts/eb504OLXJ7I)
-- **Assignment 4**: [Android Demo](https://www.youtube.com/watch?v=Si0QBggemRA)
+- **Front+Back v1**: [Flask Web Demo](https://youtu.be/fj7cPxLDiM8)
+- **Front+Back v2**: [Angular Web Demo](https://youtu.be/fj7cPxLDiM8) | [Mobile Demo](https://www.youtube.com/shorts/eb504OLXJ7I)
+- **Front(Android) v2**: [Android Demo](https://www.youtube.com/watch?v=Si0QBggemRA)
 
 ---
 
