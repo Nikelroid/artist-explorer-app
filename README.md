@@ -1,4 +1,4 @@
-# 🎨 Artsy Artist Explorer  
+# 🎨 Artist Explorer App  
 **CSCI 571 – Spring 2025 | Full-Stack Development Portfolio**
 
 A comprehensive artist exploration platform built across **three progressive assignments** showcasing modern web and mobile development skills.  
@@ -10,7 +10,7 @@ Features **artist search, detailed information, artwork galleries, and user auth
 
 
 ```
-artsy-artist-explorer/
+artist-explorer-app/
 ├── Front(Android) v2/          # Flask Web App (Vanilla JS)
 ├── Front+Back v2/          # Angular Web App (Full-Stack)
 ├── Front+Back v1/          # Android Mobile App (Kotlin)
