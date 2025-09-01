@@ -98,7 +98,7 @@ pip install Flask requests
 ### Local Development
 ```bash
 # Clone repository
-git clone https://github.com/<your-username>/artist-search-flask.git
+git clone https://github.com/Nikelroid/artist-explorer-app.git
 cd artist-search-flask
 
 # Set up environment variables
