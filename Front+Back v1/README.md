@@ -1,85 +1,85 @@
-# 🎨 Artist Explorer Web App  
-**CSCI 571 – Spring 2025 | Full-Stack Web Development Project**
+# 🎨 Artist Search Web App  
+**CSCI 571 – Spring 2025 | Server-Side + Basic Front-end Scripting Project**
 
-A responsive web application built with **Angular, TypeScript, Bootstrap, Node.js, Express, and Artsy API**.  
-The app allows users to **search artists, view detailed information, explore artworks, and manage favorites** with **JWT authentication and persistent sessions**.
+A web application built with **Python, Flask, HTML, CSS, JavaScript, and Artsy API**.  
+The app allows users to **search artists and view detailed artist information** with **responsive design and AJAX functionality**.
 
 ---
 
 ## 📌 Features
 
 ### 🔹 Core Functionality
-- **Real-time Artist Search** – Dynamic search with AJAX calls starting from user input
-- **Artist Details** – Comprehensive artist information with tabbed interface
-- **Artwork Gallery** – Browse artist's artworks with category modals
-- **Similar Artists** – Discover related artists (authenticated users only)
-- **User Authentication** – Complete registration/login system with JWT + cookies
-- **Favorites Management** – Add/remove artists with persistent storage in MongoDB Atlas
+- **Artist Search** – Search artists using Artsy API with real-time AJAX calls
+- **Artist Cards** – Visual result cards with images and artist names
+- **Artist Details** – Comprehensive artist information (biography, nationality, dates)
+- **Interactive UI** – Hover effects, loading states, and smooth transitions
+- **Responsive Design** – Mobile-friendly layout without external CSS frameworks
 
 ### 🔹 User Experience
-- **Responsive Design** – Bootstrap-powered mobile-first responsive layout
-- **Persistent Sessions** – Auth state maintained across page reloads and tabs
-- **Interactive Notifications** – Stackable toast notifications for user actions
-- **Smooth Navigation** – Proper routing with shareable URLs for artist details
-- **Real-time Updates** – Instant feedback with spinners and state changes
+- **Search Bar** – Custom-styled search with magnifying glass and clear icons
+- **Loading States** – Animated GIF indicators during API calls
+- **Error Handling** – Graceful handling of empty results and missing data
+- **Visual Feedback** – Card selection states and hover animations
+- **Fallback Images** – Artsy logo for artists without profile images
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework**: Angular (TypeScript)
-- **Styling**: Bootstrap (responsive design)
-- **HTTP**: Angular HttpClientModule (AJAX)
-- **State Management**: RxJS Subjects for auth state
-- **Routing**: Angular Router with parameter handling
-
 ### Backend
-- **Runtime**: Node.js + Express
-- **Database**: MongoDB Atlas (NoSQL)
-- **Authentication**: JWT tokens + HTTP-only cookies
-- **Security**: bcrypt password hashing + Gravatar integration
-- **HTTP Client**: Axios for Artsy API requests
+- **Language**: Python
+- **Framework**: Flask
+- **HTTP Client**: Python requests library
+- **Deployment**: Google Cloud Platform
+- **API Integration**: Artsy REST API (3 endpoints)
+
+### Frontend
+- **Languages**: HTML5, CSS3, Vanilla JavaScript
+- **AJAX**: Fetch API / XMLHttpRequest
+- **Styling**: Custom CSS (no external frameworks)
+- **Icons**: Custom magnifying glass and cross icons
+- **Images**: Artsy logo, loading GIF animations
 
 ### APIs & Services
-- **Artsy API**: Artist search, details, artworks, categories
-- **Gravatar**: User profile images via SHA256 email hash
-- **MongoDB Atlas**: User data and favorites storage
+- **Artsy API**: Authentication, Search, Artists endpoints
+- **Google Cloud**: Backend deployment and hosting
 
 ---
 
-## 📲 Pages Overview
+## 📲 Features Overview
 
-| Page | Description | Auth Required |
-|------|-------------|---------------|
-| Search | Search form, result cards, artist details tabs | No |
-| Artist Details | Biography, artworks, similar artists (shareable URLs) | Partial |
-| Login | Email/password validation, JWT cookie setup | Guest only |
-| Register | Full name, email, password with bcrypt hashing | Guest only |
-| Favorites | User's favorite artists with relative timestamps | Yes |
+| Feature | Description |
+|---------|-------------|
+| Search Bar | Custom-styled input with icons, focus states, validation |
+| Artist Cards | Circular images, blue backgrounds, hover effects |
+| Artist Details | Name, birth/death dates, nationality, biography |
+| Loading States | Animated GIFs during API calls |
+| Error Handling | Empty results, missing images, validation alerts |
+| Responsive Design | Mobile-optimized without external CSS frameworks |
 
 ---
 
-## 🔹 Authentication System
+## 🔹 API Integration
 
-### Registration
-- Form validation (required fields, email format)
-- Password hashing with bcrypt before database storage
-- Gravatar profile image URL generation (SHA256 email hash)
-- JWT token creation with 1-hour expiration
-- HTTP-only cookie setup for security
+### Artsy Endpoints Used
+1. **Authentication** (`POST /api/tokens/xapp_token`)
+   - Retrieves X-XAPP-Token for API access
+   - Manages token expiration (1-week validity)
 
-### Login/Session Management
-- Email/password verification against hashed database values
-- JWT token validation with automatic session restoration
-- Persistent auth state across page reloads and browser tabs
-- Profile dropdown with logout and delete account options
+2. **Search** (`GET /api/search`)
+   - Searches artists by name with query parameter
+   - Filters results to artist type only
+   - Returns max 10 results per request
 
-### Protected Features
-- **Similar Artists tab** (Artist Details page)
-- **Star buttons** on artist cards for favorites management
-- **Favorites page** with newest-first ordering
-- **Profile dropdown** with user avatar and management options
+3. **Artists** (`GET /api/artists/{id}`)
+   - Fetches detailed artist information by ID
+   - Returns biography, nationality, birth/death dates
+
+### Security & Architecture
+- **Backend Proxy**: All Artsy API calls routed through Flask backend
+- **Token Management**: X-XAPP-Token handled securely on server-side
+- **No Direct API Calls**: Frontend never directly accesses Artsy APIs
+- **GET Requests Only**: All frontend-backend communication via HTTP GET
 
 ---
 
@@ -87,99 +87,92 @@ The app allows users to **search artists, view detailed information, explore art
 
 ### Prerequisites
 ```bash
-# Node.js and npm
-node --version  # v18+ recommended
-npm --version
+# Python 3.8+ and pip
+python --version
+pip --version
 
-# Angular CLI
-npm install -g @angular/cli
+# Flask
+pip install Flask requests
 ```
 
-### Backend Setup
+### Local Development
 ```bash
-# Install dependencies
-cd backend
-npm install
+# Clone repository
+git clone https://github.com/<your-username>/artist-search-flask.git
+cd artist-search-flask
 
-# Configure MongoDB Atlas connection
-# Add your MongoDB connection string to environment variables
+# Set up environment variables
+export CLIENT_ID="your_artsy_client_id"
+export CLIENT_SECRET="your_artsy_client_secret"
 
-# Start backend server
-npm start
+# Run Flask application
+python app.py
 ```
 
-### Frontend Setup
+### Deployment (Google Cloud)
 ```bash
-# Install dependencies
-cd frontend
-npm install
+# Deploy to Google Cloud Platform
+gcloud app deploy
 
-# Configure proxy for local development (proxy.conf.json)
-# Start Angular development server
-ng serve
+# View deployed application
+gcloud app browse
 ```
 
-### Deployment
-- **Backend**: Deployed on Google Cloud Platform
-- **Database**: MongoDB Atlas cloud instance
-- **Frontend**: Served by Node.js backend with static file serving
+---
+
+## 🔧 Implementation Highlights
+
+### Custom Styling
+- **No Bootstrap**: Pure CSS implementation for responsive design
+- **Custom Icons**: Magnifying glass and cross icons with opacity effects
+- **Color Scheme**: Blue theme (#205375, #112B3C) with orange focus states
+- **Circular Images**: Border-radius styling for artist profile pictures
+
+### JavaScript Features
+- **Vanilla JavaScript**: No external JS frameworks or libraries
+- **AJAX Calls**: Fetch API for backend communication
+- **DOM Manipulation**: Dynamic content updates and state management
+- **Event Handling**: Search triggers, hover effects, card selection
+
+### Backend Architecture
+- **Flask Routes**: Separate endpoints for search and artist details
+- **Error Handling**: Proper HTTP status codes and error messages
+- **Static File Serving**: Frontend files served by Flask
+- **API Proxy**: Secure Artsy API integration without exposing credentials
 
 ---
 
-## 🔧 Key Implementation Details
+## 🎯 Key Use Cases
 
-### API Integration
-- **5 Artsy Endpoints**: Authentication, Search, Artists, Artworks, Genes (categories)
-- **Secure Token Handling**: X-XAPP-Token managed on backend only
-- **Error Handling**: Graceful fallbacks for missing images and data
-- **Pagination**: Uses first page results only from Artsy responses
+### Search Flow
+1. User enters artist name in search bar
+2. Frontend validates input and sends AJAX request to Flask backend
+3. Backend forwards request to Artsy Search API
+4. Results displayed as interactive artist cards
+5. User clicks card to view detailed information
 
-### UI/UX Features
-- **Bootstrap Components**: Cards, navs, tabs, modals, forms, spinners
-- **Dynamic Search**: Real-time results with hover effects and selection states
-- **Category Modals**: Detailed artwork information with Bootstrap modals
-- **Responsive Breakpoints**: Mobile-optimized layout for all screen sizes
+### Detail View
+1. Frontend sends artist ID to backend via AJAX
+2. Backend fetches artist details from Artsy Artists API
+3. Detailed information displayed below search results
+4. Card remains highlighted to show active selection
 
-### Security & Performance
-- **JWT + HTTP-only Cookies**: Secure session management
-- **CORS Handling**: Backend serves both API and static files
-- **Input Validation**: Client-side and server-side validation
-- **Async Operations**: Non-blocking AJAX calls with loading indicators
-
----
-
-## 📱 Responsive Design
-
-The application is fully responsive and tested on:
-- **Desktop**: Full feature set with sidebar navigation
-- **Mobile**: Optimized layouts for iPhone 14 Pro Max and similar devices
-- **Tablet**: Adaptive layouts between desktop and mobile breakpoints
-
----
-
-## 🎯 Learning Outcomes
-
-This project demonstrates proficiency in:
-- Full-stack web development with Angular and Node.js
-- RESTful API design and integration
-- JWT authentication and session management
-- Responsive design with Bootstrap framework
-- NoSQL database operations with MongoDB
-- Cloud deployment on Google Cloud Platform
-- Modern TypeScript and ES6+ JavaScript
+### Error Scenarios
+- Empty search input triggers browser validation alert
+- No search results shows "No results found" message
+- Missing artist images replaced with Artsy logo
+- Missing biography/nationality fields handled gracefully
 
 ---
 
 ## 📹 Demo
 
-Complete demo videos showcasing all features:
-- [Web Demo](https://youtu.be/fj7cPxLDiM8)
-- [Mobile Demo](https://www.youtube.com/shorts/eb504OLXJ7I)
+Reference demo video: [Artist Search Demo](https://youtu.be/fj7cPxLDiM8)
 
 ---
 
 ## ✨ Credits
 
 - **Instructor**: Marco Papa (USC)
-- **APIs**: [Artsy](https://www.artsy.net/), [Gravatar](https://gravatar.com/)
+- **APIs**: [Artsy](https://www.artsy.net/)
 - **Course**: USC CSCI 571 – Web Technologies
