@@ -1,0 +1,47 @@
+.footer {
+    width: 100%;
+    background: #223;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    z-index: 2;
+}
+
+.footer img {
+    height: 15px;
+    height: 15px;
+    margin-left: 3px;
+    vertical-align: middle;
+}
+
+
+@media (max-width: 767.98px) {
+  .mobile-margin {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .app-form {
+   overflow-x: hidden;
+ }
+  
+}
+
+@media (min-width: 768px) {
+    .register-btn {
+      padding-right: 20px !important;
+    }
+    .app-form {
+     overflow-x: hidden;
+   }
+  }
+
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+
+

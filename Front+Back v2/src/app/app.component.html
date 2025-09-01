@@ -1,0 +1,334 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand" style="margin-left: 20px;">Artist Search</a>
+  <button class="navbar-toggler" type="button" style="margin-right: 5%;" data-bs-toggle="collapse" data-bs-target="#navbars" aria-controls="navbars" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
+  <div class="collapse navbar-collapse mobile-margin" id="navbars">
+    <ul class="navbar-nav mx-auto mx-md-0 ms-md-auto">
+      <li class="nav-item mx-3 mx-md-0">
+        <button [className]="navBtnClasses['search']" (click)="activateSearch()" >Search</button>
+      </li>
+      <li class="nav-item text-start text-md-center mx-3 mx-md-0" [hidden]="logInStatus">
+        <button [className]="navBtnClasses['login']" (click)="activateLogin()">Login</button>
+      </li>
+      <li class="nav-item text-start text-md-center register-btn mx-3 mx-md-0" [hidden]="logInStatus"> 
+        <button [className]="navBtnClasses['register']" (click)="activateRegister()">Register</button>
+      </li>
+      <li class="nav-item text-start text-md-center mx-3 me-md-4 mx-md-0"  [hidden]="!logInStatus">
+        <button [className]="navBtnClasses['favorite']" (click)="activateFavorites()">Favorites</button>
+      </li>
+      
+      <div [hidden]="!logInStatus">
+        
+      <li class="d-flex align-items-center justify-content-center register-btn" style="margin-left: 12px;" >
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+          <li ><a class="dropdown-item" style = "color: red;" (click)="deleteAccount()">Delete Account</a></li>
+          <hr style="margin-top:5px;margin-bottom: 5px;">
+          <li ><a class="dropdown-item" (click)="logOut()">Log out</a></li>
+        </ul >
+
+        <img [src]="userInfo.avatar" class="d-flex align-middle mx-1 mx-md-0" style="width: 24px;height: 24px; border-radius: 50%; cursor: pointer;" >
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"  role="button" data-bs-toggle="dropdown"
+         aria-expanded="false" [innerText]="userInfo.name" style="cursor: pointer;" ></a>
+         
+      </li>
+    </div>
+    </ul>
+  
+  </div>
+</nav>    
+
+
+  <div class="row  justify-content-center justify-content-md-end ">  
+
+    <div class="col-md-8 col-11 ps-3"> 
+
+        <div [hidden]="tabController!='search'">
+
+    <div class="d-grid gap-2" style="margin-bottom: 5px;margin-top: 5px;">
+      <div class="mx-auto p-2 search-container" style="margin-top: 1%;">
+    <form class="form-inline" action="javascript:void(0);">
+          <div class="input-group">
+            <input type="text" [value]="inputValue" (input)="onInputChange($event)" class="form-control" id="searchInput" placeholder="Please enter an artist name ..." required>
+            <button (click)="startSearching()" class="btn btn-primary button-app" [disabled]="isDisabled" type="submit">Search
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" [hidden]="!isLoading"></span>
+            </button>
+            
+            <button (click)= "clearScreen()" type="reset" class="btn btn-secondary">Clear</button>
+        </div>
+      </form>
+    </div>
+    </div>
+    
+
+    <div [hidden]="isResultHidden">
+
+      <div [hidden]="!foundResult.search" class="d-flex justify-content-center align-items-start" style="height: auto">
+        <div [hidden]="!foundResult.search" class="alert alert-danger artist-alert" role="alert">
+          No results.
+        </div>
+      </div>
+
+      
+    <div class="wrapper " id="wrapper" >
+      <div class="scrolls " id="scroll">
+      
+    <div class="cards-container justify-content-center"> 
+      <div [class]="styleController(item._links.self.href)" *ngFor="let item of items" >
+        <div >
+          <img src={{item._links.thumbnail.href}} alt={{item.title}} (click)="getDescription(item._links.self.href)">
+          <div [hidden]="!logInStatus" >
+          <button class="fav-btn button-app btn position-absolute top-0 end-0 m-1 rounded-circle" (click)="toggleFavorite(item._links.self.href)">
+            <i [class]="generateClassName(item._links.self.href)" 
+               [style]="generateClassNameForColor(item._links.self.href)"></i>
+          </button>
+        </div>
+        </div>
+        <p class="card-text text-start mx-3" (click)="getDescription(item._links.self.href)">{{ item.title }}</p>
+      </div>
+    </div>
+  </div> 
+</div> 
+</div>
+
+
+<nav class="nav nav-pills nav-pills nav-justified container-details mx-auto" style="text-align: justify; text-justify: inter-word;"
+[hidden]="!isBioAvailable">
+  <a [className]="activeClassInfo" aria-current="page" (click)="showArtistInfo()">Artist info</a>
+  <a [className]="activeClassArtWork" (click)="showArtworks()">Artworks</a>
+</nav>
+
+<div class = "flex-column flex-md-row container-details mx-auto" style="margin-top: 3%; margin-bottom: 6%; text-align: justify" >
+  <div [hidden]="isShowArtwoks">
+    <div class="d-flex justify-content-center" >
+      <div id= "spinner_loading" class="spinner-border " style="color: #205375;" role="status" [hidden]="!isLoadingBio"></div>
+      </div>
+    <div [hidden]="isLoadingBio">
+      <div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+        <h4 style="margin: 0; padding: 0;" [hidden]="!isBioAvailable" (click)="makeDescriptionFullScreen()">{{artistDesc.name}}</h4>
+        <div [hidden]="!logInStatus || !isBioAvailable">
+          <i (click)="toggleFavorite(artistDesc._links.self.href)" 
+            [class]="generateClassName(artistDesc._links.self.href)" 
+            [style]="generateClassNameForColor(artistDesc._links.self.href, false)">
+          </i>
+        </div>
+      </div>
+  <p (click)="makeDescriptionFullScreen()"  style=" text-align: center; font-size: smaller;" [hidden]="!isBioAvailable">{{artistDesc.nationality}}{{splitters[0]}}{{artistDesc.birthday}} {{splitters[1]}} {{artistDesc.deathday}}</p>
+  <div class="pb-4" style=" font-size: smaller;" [innerHtml]="biographyParagraphedText" [hidden]="!isBioAvailable"></div>
+
+  
+
+  <div [hidden]="!logInStatus || !isSimilarReady">
+  <h4 style="margin-bottom: 0px; margin-left: 5px;">Similar Artists</h4>
+  <div class="wrapper" id="wrapper"  style="width: 100%; padding-top: 0px;">
+    <div class="scrolls" id="scroll">
+  <div class="cards-container"> 
+    <div class="card" *ngFor="let sim of similars" >
+        <img src={{sim._links.thumbnail.href}} alt={{sim.name}} (click)="getDescription(sim._links.self.href)" style="aspect-ratio: 1;">
+        <div [hidden]="!logInStatus" >
+        <button class="fav-btn button-app btn position-absolute top-0 end-0 m-1 rounded-circle " (click)="toggleFavorite(sim._links.self.href)">
+          <i [class]="generateClassName(sim._links.self.href)" 
+             [style]="generateClassNameForColor(sim._links.self.href)"></i>
+        </button>
+      </div>
+      <p class="card-text text-md-start" (click)="getDescription(sim._links.self.href)">{{ sim.name }}</p>
+    </div>
+  </div>
+</div> 
+</div> 
+</div> 
+
+
+</div>
+</div>
+
+
+<div [hidden]="!isShowArtwoks">
+
+    <div [hidden]="! foundResult.artwork" class="alert alert-danger " role="alert">
+      No artworks.
+    </div>
+    
+  <div class="artwork-cards-container">
+    <div class="artwork-card" *ngFor="let art of artWorkData">
+      <div>
+        <img src={{art._links.thumbnail.href}}>
+      </div>
+      <div style="font-size: 0; text-align: center; margin-top: 10px; margin-bottom: 17px;">
+     <a class="artwork-card-text text-md-start">{{art.title}},</a><a style="color:gray" class="artwork-card-text text-md-start">{{art.date}}</a>
+    </div>
+    <div style="text-align: center;">
+      <button class="btn" (click)="getCategories(art.id,art.title,art.date,art._links.thumbnail.href)" data-bs-toggle="modal" data-bs-target="#CatModal">View categories</button>
+     </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="modal fade justify-content-center" id="CatModal" tabindex="-1" aria-labelledby="CatModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header" style="display: flex; align-items: center; height: 70px;">
+        <img style="height: 48px; width: auto; margin-right: 10px;" [src]="activeArtWork.src">
+        <div style="display: flex; flex-direction: column; justify-content: center; height: 70px;">
+          <a style="text-decoration: none; height: 20px;">{{ activeArtWork.title }}</a>
+          <a style="text-decoration: none; height: 20px;">{{ activeArtWork.year }}</a>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <div [hidden]="!catResultIsReady">
+
+          <div [hidden]="! foundResult.genre" class="alert alert-danger " role="alert">
+            No categories.
+          </div>
+
+        <div class="gens-cards-container">
+          <div class="gens-card" *ngFor="let category of categories">
+            <div>
+              <img src="{{category._links.thumbnail.href}}">
+            </div>
+           <a class="gens-card-text text-md-center" style="text-align: center; margin-top: 10px; margin-bottom: 10px;">{{category.name}}</a>
+          </div>
+        </div>
+      </div>
+      <div [hidden]="catResultIsReady">
+      <div class="d-flex justify-content-center" >
+        <div id= "spinner_loading" class="spinner-border " style="color: #205375;" role="status"></div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+    
+
+  <div [hidden]="tabController!='login'">
+
+    <form class="needs-validated d-flex justify-content-center" action="javascript:void(0);" #regForm="ngForm" novalidate>
+      <div class=" login-container">
+      <div class="form-group border rounded">
+        <h2>Login</h2>
+
+        <div class="login-input-container">
+          <label for="emailInput">Email address</label>
+          <input type="text" class="form-control" id="emailInputLogin" name="email" [(ngModel)]="regInputs['email']" placeholder="Enter email" aria-describedby="emailFeedback"
+           pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required (blur)="validateEmail()" (input)="onRegChange('email')"[class.is-invalid]="regValid['email']"/>
+          <label style="margin-bottom: 7px;" id="emailFeedback" class="invalid-feedback" [innerText]="emailErrorText"></label>
+        </div>
+      
+        <div class="login-input-container">
+          <label for="passInput">Password</label>
+          <input style="background: none;" type="password" class="form-control" id="passInputLogin" name="pass" [(ngModel)]="regInputs['pass']" placeholder="Password" aria-describedby="passFeedback"
+            required (blur)="validatePassword()" (input)="onRegChange('pass')"[class.is-invalid]="regValid['pass']"/>
+          <label  id="passFeedback" class="invalid-feedback" [innerText]="passErrorText"></label>
+        </div>
+
+        <button type="submit" class="btn button-app" (click)="logIn()" [disabled]="logButtonDisabled">Log in</button>
+      </div>
+    <div class=" d-flex justify-content-center" style="margin: 5px;">
+    <a>Dont have an account yet?&nbsp;</a><a (click)="activateRegister()" href="#">Register</a>
+  </div>
+  </div>
+  </form>
+  </div>
+
+  <div [hidden]="tabController!='register'">
+
+    <form class="needs-validated d-flex justify-content-center" action="javascript:void(0);" #regForm="ngForm" novalidate>
+      <div class=" login-container">
+      <div class="form-group border rounded">
+        <h2 style="margin: 25px;">Register</h2>
+
+        <div class="login-input-container">
+          <label for="nameInput">Fullname</label>
+          <input type="text" class="form-control" id="nameInput" name="name" [(ngModel)]="regInputs['name']" placeholder="John Doe" aria-describedby="nameFeedback"
+           pattern="[A-Za-z]{3,}" required (blur)="validateName()" (input)="onRegChange('name')" [class.is-invalid]="regValid['name']"/>
+          <label style="margin-bottom: 7px;"  id="nameFeedback" class="invalid-feedback">Fullname is required.</label>
+        </div>
+
+        <div class="login-input-container">
+          <label for="emailInput">Email address</label>
+          <input type="text" class="form-control" id="emailInput" name="email" [(ngModel)]="regInputs['email']" placeholder="Enter email" aria-describedby="emailFeedback"
+           pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required (blur)="validateEmail()" (input)="onRegChange('email')"[class.is-invalid]="regValid['email']"/>
+          <label style="margin-bottom: 7px;" id="emailFeedback" class="invalid-feedback" [innerText]="emailErrorText"></label>
+        </div>
+      
+        <div class="login-input-container">
+          <label for="passInput">Password</label>
+          <input style="background: none;" type="password" class="form-control" id="passInput" name="pass" [(ngModel)]="regInputs['pass']" placeholder="Password" aria-describedby="passFeedback"
+           required (blur)="validatePassword()" (input)="onRegChange('pass')"[class.is-invalid]="regValid['pass']"/>
+          <label  id="passFeedback" class="invalid-feedback">Password is required.</label>
+        </div>
+
+        <button type="submit" class="btn button-app" (click)="Reg()" [disabled]="regButtonDisabled" >Register</button>
+      </div>
+      <div class="d-flex justify-content-center" style="margin: 5px;">
+      <a>Already have an account?&nbsp;</a><a (click)="activateLogin()" href="#">Login</a>
+    </div>
+    </div>
+    </form>
+    </div>
+
+
+    <div [hidden]="tabController!='favorite'">
+      <div>
+      <div [hidden]="!foundResult.favorite" class="alert alert-danger mt-4" role="alert">
+        No favorite artists.
+      </div>
+    </div>
+      <div>
+        
+        <div class="d-flex justify-content-center " >
+          <div id= "spinner_loading" class="spinner-border mt-4" style="color: #205375;" role="status" [hidden]="isFavoriteReady"></div>
+          </div>
+      </div>
+      <div class="container-fluid mb-5" [hidden]="!isFavoriteReady">
+        <div class="row justify-content-center">
+          <div class="fav-container"> 
+            <div class="cards-container-favorites">
+              <div (click)="favoriteCardClick(fav.artistId)" class="card-favorites" *ngFor="let fav of this.userInfo.favorites" >
+                <div  class="card-bg-blur" [ngStyle]="{'background-image': 'url(' + fav.thumbnail + ')'}"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content-favorites">
+                  <div class="content-top">
+                    <h3>{{fav.title}}</h3>
+                    <p class="mb-0">{{fav.dates}}</p>
+                    <p>{{fav.nationality}}</p>
+                  </div>
+                  <div  class="content-top d-flex justify-content-between">
+                    <p class="mb-0" [innerText]="getFavTime(fav.time)"></p>
+                    <p class="remove-link mb-0" (click)="removeFavorite(fav.artistId,false,$event)">Remove</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  
+    <div class="col-md-2 d-md-flex justify-content-end fix-mobile-notif" >
+      <div >
+        <div *ngFor="let alert of this.alerts" class="alert alert-{{alert.type}} alert-dismissible fade show" role="alert"
+        style="      
+        margin-top: 20px;
+        margin-bottom: -10px;
+        margin-right: 10px;
+        font-size: small;
+        width: auto">  
+          {{ alert.message }}
+          <button type="button" class="btn-close" (click)="removeAlert(alert.id)" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
