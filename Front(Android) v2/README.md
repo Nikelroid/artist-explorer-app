@@ -82,7 +82,7 @@ The app allows users to **search artists, view detailed artist information, expl
 
 1. **Clone this repo**  
    ```bash
-   git clone https://github.com/<your-username>/artist-explorer-app.git
+   git clone https://github.com/Nikelroid/artist-explorer-app.git
    cd artist-explorer-app
    ```
 
