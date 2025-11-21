@@ -103,6 +103,3 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📞 Contact
 
 For support or queries, please open an issue on this repository.
-
-```
-```
