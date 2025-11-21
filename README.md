@@ -1,168 +1,108 @@
 # 🎨 Artist Explorer App  
-**CSCI 571 – Spring 2025 | Full-Stack Development Portfolio**
-
-A comprehensive artist exploration platform built across **three progressive assignments** showcasing modern web and mobile development skills.  
-Features **artist search, detailed information, artwork galleries, and user authentication** using the **Artsy API ecosystem**.
-
----
-
-## 📁 Repository Structure
 
 
-```
-artist-explorer-app/
-├── Front(Android) v2/          # Flask Web App (Vanilla JS)
-├── Front+Back v2/          # Angular Web App (Full-Stack)
-├── Front+Back v1/          # Android Mobile App (Kotlin)
-└── README.md             # This file
-```
+![Angular](https://img.shields.io/badge/Angular-19.2+-dd0031.svg)
+![Node.js](https://img.shields.io/badge/Node.js-18.0+-339933.svg)
+![Android](https://img.shields.io/badge/Android-API%2034-3DDC84.svg)
+![Kotlin](https://img.shields.io/badge/Kotlin-1.9+-7F52FF.svg)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248.svg)
+![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)
 
----
 
-## 🚀 Project Evolution
+**Artist Explorer** is a multi-platform application ecosystem (Web & Android) designed to help users discover artists, view detailed biographies, and explore artwork collections. The system leverages the **Artsy API** for data, **MongoDB** for persistent user data, and includes a **Generative AI** chatbot assistant.
 
-### Front+Back v1: Flask Foundation
-**Python, Flask, Vanilla JavaScript, Custom CSS**
-- Basic artist search with Artsy API integration
-- Custom responsive design without frameworks
-- AJAX functionality with loading states
-- Server-side API proxy for security
+## 📖 Description
 
-### Front+Back v2: Angular Full-Stack
-**Angular, TypeScript, Bootstrap, Node.js, MongoDB**
-- Modern frontend framework with responsive Bootstrap design
-- Complete authentication system (JWT + cookies)
-- User favorites with persistent storage
-- Advanced features: similar artists, artwork galleries
+This project provides a seamless experience for art enthusiasts across devices. It consists of three main components:
+1.  **Front+Back v2 (Web):** A responsive Angular 19 application backed by a Node.js/Express server. It handles user authentication (JWT), proxies Artsy API requests, and manages user favorites.
+2.  **Front(Android) v2:** A modern native Android application built with Jetpack Compose. It interfaces with the same backend to provide a synchronized mobile experience.
+3.  **Experimental AI (v1):** A Python Flask service integrating Google Gemini 2.0 to act as a helpful student assistant.
 
-### Front(Android) v2: Android Mobile
-**Kotlin, Jetpack Compose, Material Design 3**
-- Native Android app with modern UI patterns
-- Persistent login with cookie management
-- Tab-based navigation and real-time search
-- Mobile-optimized user experience
+## ✨ Features
 
----
+### Core Functionality
+* **Dynamic Search:** Real-time artist search with autocomplete functionality using the Artsy API.
+* **Detailed Profiles:** View artist biographies, nationality, birth/death dates, and carousel galleries of their artworks.
+* **Favorites System:** Authenticated users can save artists to their favorites list, which persists across Web and Android platforms via MongoDB.
 
-## 🔧 Technology Progression
+### Web Application (Angular + Node.js)
+* **Responsive Design:** Built with Bootstrap for mobile-first compatibility.
+* **Secure Auth:** JWT-based authentication with HTTP-only cookies and bcrypt password hashing.
+* **Interactive UI:** Tabbed navigation, modal views for artwork categories, and toast notifications.
 
-| Assignment | Frontend | Backend | Database | Deployment |
-|------------|----------|---------|----------|------------|
-| **Front+Back v1** | Vanilla JS + Custom CSS | Python Flask | None | Google Cloud |
-| **Front+Back v2** | Angular + Bootstrap | Node.js + Express | MongoDB Atlas | Google Cloud |
-| **Front(Android) v2** | Android (Kotlin + Compose) | Node.js (reused) | MongoDB Atlas | Emulator |
+### Android Application (Kotlin + Compose)
+* **Modern UI:** Native Jetpack Compose interface with Material 3 design.
+* **Session Management:** Persistent login using cookies and SharedPreferences.
+* **Optimized Networking:** Uses Retrofit and Coil for efficient API calls and image loading.
 
----
+## 🛠️ Installation
 
-## 📌 Core Features (All Projects)
+### Prerequisites
+* **Node.js** (v18+) and **npm**
+* **Android Studio** (Koala or later recommended, API 34 SDK)
+* **Python** (3.10+)
+* **MongoDB Atlas** URI
+* **Artsy API** Credentials
+* **Google Gemini API** Key
 
-### 🔹 Artist Search & Discovery
-- **Real-time Search**: Dynamic artist search with Artsy API
-- **Artist Details**: Biography, nationality, birth/death dates
-- **Artwork Galleries**: Browse artists' complete artwork collections
-- **Visual Design**: Consistent card-based layouts across platforms
-
-### 🔹 Authentication (Assignments 3 & 4)
-- **User Registration**: Form validation with secure password hashing
-- **Session Management**: JWT tokens with HTTP-only cookies
-- **Persistent Login**: State maintained across app restarts
-- **Profile Management**: Gravatar integration and account deletion
-
-### 🔹 Favorites System (Assignments 3 & 4)
-- **Add/Remove Artists**: Toggle favorite status with instant feedback
-- **Persistent Storage**: MongoDB Atlas for cross-device synchronization
-- **Newest-First Ordering**: Timestamped favorites with relative time display
-- **Similar Artists**: Discover related artists (authenticated users only)
-
----
-
-## 🛠️ Tech Stack Highlights
-
-### Shared Components
-- **Artsy API**: Artist search, details, artworks, categories
-- **Security**: Backend API proxy to protect credentials
-- **Responsive Design**: Mobile-first approach across all platforms
-- **Error Handling**: Graceful fallbacks for missing data
-
-### Progressive Enhancement
-- **Front+Back v1**: Foundation with vanilla technologies
-- **Front+Back v2**: Modern web frameworks and full authentication
-- **Front(Android) v2**: Native mobile experience with advanced UI patterns
-
----
-
-## 🎯 Learning Outcomes
-
-This portfolio demonstrates proficiency in:
-
-### Web Development
-- **Frontend**: Vanilla JS → Angular → Android (Kotlin)
-- **Backend**: Python Flask → Node.js Express
-- **Styling**: Custom CSS → Bootstrap → Material Design 3
-- **State Management**: DOM manipulation → RxJS → Jetpack Compose
-
-### Full-Stack Skills
-- **API Integration**: RESTful services with proper authentication
-- **Database**: NoSQL with MongoDB Atlas
-- **Authentication**: JWT tokens, session management, password security
-- **Deployment**: Google Cloud Platform hosting
-
-### Mobile Development
-- **Native Android**: Kotlin with Jetpack Compose
-- **Modern Patterns**: MVVM architecture, coroutines, Material Design
-- **Performance**: Efficient image loading, lazy rendering, memory management
-
----
-
-## 🚀 Quick Start
-
-### Front+Back v1 (Flask)
+### 1. Web Application (Front+Back v2)
+Navigate to the web directory and install dependencies:
 ```bash
-cd assignment-2
-pip install Flask requests
-python app.py
-```
+cd "Front+Back v2"
+npm install
+````
 
-### Front+Back v2 (Angular + Node.js)
+Configure your environment variables (create a `.env` file) with your MongoDB URI and Artsy credentials. Then run:
+
 ```bash
-# Backend
-cd assignment-3/backend
-npm install && npm start
-
-# Frontend
-cd assignment-3/frontend
-npm install && ng serve
+# Development server
+npm start
 ```
 
-### Front(Android) v2 (Android)
+*The Angular frontend is served via the Node backend or can be run separately via `ng serve`.*
+
+### 2\. Android Application
+
+1.  Open Android Studio.
+2.  Select **Open** and navigate to `Front(Android) v2`.
+3.  Allow Gradle to sync dependencies.
+4.  Create an emulator (Pixel 8 Pro, API 34 recommended) or connect a physical device.
+5.  Click **Run**.
+
+### 3\. AI Assistant Service (Front+Back v1)
+
+If running the Python AI component:
+
 ```bash
-cd assignment-4
-# Open in Android Studio
-# Use Pixel 8 Pro Emulator with API 34
+cd "Front+Back v1"
+pip install -r requirements.txt
+python main.py
 ```
 
----
+## 🚀 Usage
 
-## 📹 Demos
+1.  **Register/Login:** Create an account to enable the "Favorites" and "Similar Artists" features.
+2.  **Search:** Use the search bar to find artists (e.g., "Picasso", "Warhol").
+3.  **Explore:** Click on an artist to view their bio and scroll through their artwork.
+4.  **Manage Favorites:** Click the Star icon to add/remove artists from your dashboard.
 
-- **Front+Back v1**: [Flask Web Demo](https://youtu.be/fj7cPxLDiM8)
-- **Front+Back v2**: [Angular Web Demo](https://youtu.be/fj7cPxLDiM8) | [Mobile Demo](https://www.youtube.com/shorts/eb504OLXJ7I)
-- **Front(Android) v2**: [Android Demo](https://www.youtube.com/watch?v=Si0QBggemRA)
+## 🤝 Contributing
 
----
+Contributions are welcome\! Please follow these steps:
 
-## 🎓 Academic Context
+1.  Fork the repository.
+2.  Create a feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
 
-**Course**: USC CSCI 571 – Web Technologies  
-**Instructor**: Marco Papa  
-**Semester**: Spring 2025
+## 📄 License
 
-This repository showcases the complete learning journey from basic web development to advanced full-stack and mobile applications, demonstrating progressive skill building in modern software development.
+Distributed under the MIT License. See `LICENSE` for more information.
 
----
+## 📞 Contact
 
-## ✨ Credits
+For support or queries, please open an issue on this repository.
 
-- **APIs**: [Artsy](https://www.artsy.net/), [Gravatar](https://gravatar.com/)
-- **Cloud Services**: Google Cloud Platform, MongoDB Atlas
-- **Development**: USC CSCI 571 Web Technologies Course
+```
+```
