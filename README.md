@@ -11,6 +11,8 @@
 
 **Artist Explorer** is a multi-platform application ecosystem (Web & Android) designed to help users discover artists, view detailed biographies, and explore artwork collections. The system leverages the **Artsy API** for data, **MongoDB** for persistent user data, and includes a **Generative AI** chatbot assistant.
 
+![Results Page](artist-app.jpg)
+
 ## 📖 Description
 
 This project provides a seamless experience for art enthusiasts across devices. It consists of three main components:
